@@ -1,1 +1,4 @@
 **/target/**/*.class
+**/target/**/*.lst
+**/target/**/*.jar
+**/target/**/*.properties
