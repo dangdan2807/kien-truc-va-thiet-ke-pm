@@ -2,3 +2,4 @@
 **/target/**/*.lst
 **/target/**/*.jar
 **/target/**/*.properties
+**/target/**/*.form
