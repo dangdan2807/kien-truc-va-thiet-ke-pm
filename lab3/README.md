@@ -13,3 +13,7 @@ login
 ![alt](../image/SpringBoot_JWT_login.jpg)  
 
 **SpringBoot_JWT_2**  
+register  
+![alt](../image/SpringBoot_JWT2_register.jpg)  
+database  
+![alt](../image/SpringBoot_JWT2_register_DB.jpg)  
