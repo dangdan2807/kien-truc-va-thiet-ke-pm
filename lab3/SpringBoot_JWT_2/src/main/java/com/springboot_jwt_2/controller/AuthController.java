@@ -12,6 +12,7 @@ import com.springboot_jwt_2.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -53,35 +54,46 @@ public class AuthController {
         User user = new User(registerRequest.getUsername(), passEncoder);
         Set<String> strRoles = registerRequest.getRoles();
         Set<Role> roles = new HashSet<>();
-        strRoles.forEach(role -> {
-            switch (role) {
-                case "admin":
-                case "ADMIN":
-                    Role adminRole = roleService.findByName("ADMIN")
-                            .orElseThrow(() -> new RuntimeException("Role not found"));
-                    roles.add(adminRole);
-                    break;
-                case "pm":
-                case "PM":
-                    Role pmRole = roleService.findByName("PM")
-                            .orElseThrow(() -> new RuntimeException("Role not found"));
-                    roles.add(pmRole);
-                    break;
-                default:
-                    Role userRole = roleService.findByName("USER")
-                            .orElseThrow(() -> new RuntimeException("Role not found"));
-                    roles.add(userRole);
+        if( strRoles == null || strRoles.size() == 0) {
+            Role userRole = roleService.findByName("USER")
+                    .orElseThrow(() -> new RuntimeException("Role not found"));
+            roles.add(userRole);
+        } else {
+            strRoles.forEach(role -> {
+                switch (role) {
+                    case "admin":
+                    case "ADMIN":
+                        Role adminRole = roleService.findByName("ADMIN")
+                                .orElseThrow(() -> new RuntimeException("Role not found"));
+                        roles.add(adminRole);
+                        break;
+                    case "pm":
+                    case "PM":
+                        Role pmRole = roleService.findByName("PM")
+                                .orElseThrow(() -> new RuntimeException("Role not found"));
+                        roles.add(pmRole);
+                        break;
+                    default:
+                        Role userRole = roleService.findByName("USER")
+                                .orElseThrow(() -> new RuntimeException("Role not found"));
+                        roles.add(userRole);
 
-            }
-        });
-        long mili = System.currentTimeMillis();
-        user.setCreatedAt(new Date(mili));
+                }
+            });
+        }
+        long millis = System.currentTimeMillis();
+        user.setCreatedAt(new Date(millis));
         user.setRoles(roles);
         User newUser = userService.save(user);
         // return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
         return new ResponseEntity<Object>(newUser, HttpStatus.OK);
     }
 
+    /*
+     * đầu nào
+     * username: String
+     * password: String
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
@@ -91,5 +103,11 @@ public class AuthController {
         String token = jwtProvider.createToken(authentication);
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         return ResponseEntity.ok(new JwtResponse(token, userPrincipal.getUsername(), userPrincipal.getAuthorities()));
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasAnyRole('ADMIN', 'ROLE_ADMIN')")
+    public ResponseEntity admin() {
+        return ResponseEntity.ok(new MessageResponse("welcome to admin"));
     }
 }

@@ -1,14 +1,12 @@
 package com.SpringBoot_JWT.service;
 
 import com.SpringBoot_JWT.authen.UserPrincipal;
-import com.SpringBoot_JWT.models.User;
+import com.SpringBoot_JWT.entity.User;
 import com.SpringBoot_JWT.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service

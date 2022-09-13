@@ -1,7 +1,8 @@
 package com.SpringBoot_JWT.repository;
 
-import com.SpringBoot_JWT.models.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.SpringBoot_JWT.entity.Token;
 
 public interface TokenRepository
         extends JpaRepository<Token, Long> {

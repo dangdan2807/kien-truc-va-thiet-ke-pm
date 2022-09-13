@@ -1,4 +1,4 @@
-package com.SpringBoot_JWT.models;
+package com.SpringBoot_JWT.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.*;
@@ -27,9 +27,29 @@ public abstract class BaseEntity implements Serializable {
     @LastModifiedDate
     private Date updateAt;
 
-    @CreatedBy
     private Long createBy;
 
-    @LastModifiedBy
     private Long updateBy;
+
+    public BaseEntity(Long id, String deleted, Date createAt, Date updateAt, Long createBy, Long updateBy) {
+        this.id = id;
+        this.deleted = deleted;
+        this.createAt = createAt;
+        this.updateAt = updateAt;
+        this.createBy = createBy;
+        this.updateBy = updateBy;
+    }
+
+    public BaseEntity(Long id, Date createAt, Date updateAt) {
+        this.id = id;
+        this.createAt = createAt;
+        this.updateAt = updateAt;
+    }
+
+    public BaseEntity(Long id) {
+        this.id = id;
+    }
+
+    public BaseEntity() {
+    }
 }

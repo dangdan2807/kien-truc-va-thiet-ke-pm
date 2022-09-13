@@ -1,8 +1,9 @@
 package com.SpringBoot_JWT.controller;
 
 import com.SpringBoot_JWT.authen.UserPrincipal;
-import com.SpringBoot_JWT.models.Token;
-import com.SpringBoot_JWT.models.User;
+import com.SpringBoot_JWT.entity.Role;
+import com.SpringBoot_JWT.entity.Token;
+import com.SpringBoot_JWT.entity.User;
 import com.SpringBoot_JWT.service.TokenService;
 import com.SpringBoot_JWT.service.UserService;
 import com.SpringBoot_JWT.util.JwtUtil;
@@ -16,6 +17,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 public class AuthController {
@@ -35,6 +38,9 @@ public class AuthController {
         long millis = System.currentTimeMillis();
         user.setCreateAt(new Date(millis));
         user.setUpdateAt(new Date(millis));
+        Set<Role> roles = new HashSet<>();
+        roles.add(new Role(1));
+        user.setRoles(roles);
         return userService.createUser(user);
     }
 

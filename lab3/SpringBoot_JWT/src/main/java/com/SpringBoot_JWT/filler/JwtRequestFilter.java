@@ -1,7 +1,7 @@
 package com.SpringBoot_JWT.filler;
 
 import com.SpringBoot_JWT.authen.UserPrincipal;
-import com.SpringBoot_JWT.models.Token;
+import com.SpringBoot_JWT.entity.Token;
 import com.SpringBoot_JWT.service.TokenService;
 import com.SpringBoot_JWT.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +32,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
+            HttpServletResponse response,
+            FilterChain filterChain)
             throws ServletException, IOException {
 
-        final String authorizationHeader
-                = request.getHeader("Authorization");
+        final String authorizationHeader = request.getHeader("Authorization");
 
         UserPrincipal user = null;
         Token token = null;
@@ -45,6 +44,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (StringUtils.hasText(authorizationHeader) &&
                 authorizationHeader.startsWith("Token ")) {
             String jwt = authorizationHeader.substring(6);
+
             user = jwtUtil.getUserFromToken(jwt);
             token = verificationTokenService.findByToken(jwt);
         }
@@ -55,13 +55,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
             user.getAuthorities().forEach(
                     p -> authorities.add(new SimpleGrantedAuthority((String) p)));
-            UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(user, null, authorities);
+
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null,
+                    authorities);
+
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-
         filterChain.doFilter(request, response);
     }
 }

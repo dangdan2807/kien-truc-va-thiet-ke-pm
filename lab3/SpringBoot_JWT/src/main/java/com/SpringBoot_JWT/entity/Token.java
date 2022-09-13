@@ -1,4 +1,4 @@
-package com.SpringBoot_JWT.models;
+package com.SpringBoot_JWT.entity;
 
 import lombok.Getter;
 import lombok.Setter;

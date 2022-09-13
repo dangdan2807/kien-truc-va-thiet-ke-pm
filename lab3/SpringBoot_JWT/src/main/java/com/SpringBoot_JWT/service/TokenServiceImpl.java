@@ -1,6 +1,6 @@
 package com.SpringBoot_JWT.service;
 
-import com.SpringBoot_JWT.models.Token;
+import com.SpringBoot_JWT.entity.Token;
 import com.SpringBoot_JWT.repository.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

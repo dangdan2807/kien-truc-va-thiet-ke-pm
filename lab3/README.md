@@ -12,6 +12,10 @@ register
 login  
 ![alt](../image/SpringBoot_JWT_login.jpg)  
 
+hello  
+![alt](../image/SpringBoot_JWT_hello.jpg)  
+
+
 **SpringBoot_JWT_2**  
 register  
 ![alt](../image/SpringBoot_JWT2_register.jpg)  
