@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface MayBayRepository extends JpaRepository<MayBay, Long> {
-    @Query("select count(MaMB) from MayBay where Loai like 'Boeing%'")
+    @Query("select count(mb.maMB) from MayBay mb where mb.loai like 'Boeing%'")
     public int countMayBayByLoaiLike(String loaiMayBay);
 }

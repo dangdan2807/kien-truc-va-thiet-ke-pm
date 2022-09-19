@@ -20,10 +20,20 @@ public class NhanVienController {
     @Autowired
     private NhanVienService nhanVienService;
 
-//    cau 3
+    // cau 3
+    // [GET] /nhan-vien/luong-nho-hon/{luong}
     @GetMapping("/luong-nho-hon/{luong}")
     public List<NhanVien> getNhanVienCoLuongNhoHon(@PathVariable(name = "luong") int luong) {
         List<NhanVien> dsNhanVien = nhanVienService.findAllByLuongLessThan(luong);
         return dsNhanVien;
+    }
+
+    // cau 8
+    // [GET] /nhan-vien/tong-luong
+    @GetMapping("/tong-luong")
+    public String getTongLuongNhanVien() {
+        Object obj = nhanVienService.getTotalSalary();
+        Long luong = obj != null ? (Long) obj : 0L;
+        return "{ \"tong_luong_nhan_vien\": " + luong + "}";
     }
 }

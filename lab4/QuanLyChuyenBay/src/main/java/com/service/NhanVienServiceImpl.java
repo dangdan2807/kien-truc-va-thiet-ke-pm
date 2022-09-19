@@ -17,4 +17,10 @@ public class NhanVienServiceImpl implements NhanVienService{
         List<NhanVien> nhanViens = nhanVienRepository.findAllByLuongLessThan(luong);
         return nhanViens;
     }
+
+    @Override
+    public Object getTotalSalary() {
+        Object luong = nhanVienRepository.getTotalSalary();
+        return luong;
+    }
 }
