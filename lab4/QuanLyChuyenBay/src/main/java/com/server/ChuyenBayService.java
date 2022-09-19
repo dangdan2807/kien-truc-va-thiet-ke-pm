@@ -5,5 +5,6 @@ import com.entity.ChuyenBay;
 import java.util.List;
 
 public interface ChuyenBayService {
-    public List<ChuyenBay> getChuyenBayDiDatLat();
+    List<ChuyenBay> getChuyenBayDiDatLat();
+    List<ChuyenBay> getChuyenBayLonHon10kkm();
 }

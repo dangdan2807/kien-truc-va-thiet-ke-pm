@@ -2,16 +2,14 @@ package com.repository;
 
 import com.entity.ChuyenBay;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface ChuyenBayRepository extends JpaRepository<ChuyenBay, String> {
-    public List<ChuyenBay> findAllByMaCB(String maCB);
+    List<ChuyenBay> findAllByGaDen(String maGaDen);
 
-    public List<ChuyenBay> findAllByGaDen(String maGaDen);
-
-    public List<ChuyenBay> getAllByGaDen(String maGaDen);
-
-    public List<ChuyenBay> searchChuyenBayByGaDen(String maGaDen);
+    List<ChuyenBay> findAllByDoDaiGreaterThan(int km);
 
 }
