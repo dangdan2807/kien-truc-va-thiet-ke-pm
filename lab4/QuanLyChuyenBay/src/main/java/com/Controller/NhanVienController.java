@@ -20,6 +20,7 @@ public class NhanVienController {
     @Autowired
     private NhanVienService nhanVienService;
 
+//    cau 3
     @GetMapping("/luong-nho-hon/{luong}")
     public List<NhanVien> getNhanVienCoLuongNhoHon(@PathVariable(name = "luong") int luong) {
         List<NhanVien> dsNhanVien = nhanVienService.findAllByLuongLessThan(luong);

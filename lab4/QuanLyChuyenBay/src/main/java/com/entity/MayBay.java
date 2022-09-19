@@ -15,20 +15,24 @@ import java.io.Serializable;
 @Setter
 public class MayBay implements Serializable {
     @Id
-    private int MaMB;
-    @Column(columnDefinition = "varchar(50)")
-    private String Loai;
-    private int TamBay;
+    @Column(name = "mamb")
+    private int maMB;
+
+    @Column(name = "loai", columnDefinition = "varchar(50)")
+    private String loai;
+
+    @Column(name = "tambay")
+    private int tamBay;
 
     public MayBay(int maMB, String loai, int tamBay) {
-        MaMB = maMB;
-        Loai = loai;
-        TamBay = tamBay;
+        this.maMB = maMB;
+        this.loai = loai;
+        this.tamBay = tamBay;
     }
 
     public MayBay(String loai, int tamBay) {
-        Loai = loai;
-        TamBay = tamBay;
+        this.loai = loai;
+        this.tamBay = tamBay;
     }
 
     public MayBay() {

@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface ChuyenBayService {
     List<ChuyenBay> getChuyenBayDiDatLat();
-    List<ChuyenBay> getChuyenBayLonHon10kkm();
+    List<ChuyenBay> getAllByDoDaiGreaterThan();
+
+    List<ChuyenBay> findAllByDoDaiGreaterThanEqualAndDoDaiLessThanEqual(int from, int to);
 }
