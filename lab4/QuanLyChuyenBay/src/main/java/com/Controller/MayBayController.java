@@ -17,6 +17,8 @@ public class MayBayController {
     // [GET] /may-bay/so-may-bay/boeing
     @GetMapping("/so-may-bay/boeing")
     public String getSoMayBayBoeing() {
-        return "{ \"so_chuyen_bay\": " + 1 + "}";
+        String loai = "Boeing";
+        int count = mayBayService.countMayBayByLoaiLike(loai);
+        return "{ \"so_may_bay\": " + count + "}";
     }
 }
