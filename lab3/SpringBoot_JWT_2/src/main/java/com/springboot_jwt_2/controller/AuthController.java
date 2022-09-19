@@ -106,7 +106,7 @@ public class AuthController {
     }
 
     @GetMapping("/admin")
-    @PreAuthorize("hasAnyRole('ADMIN', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'ROLE_ADMIN')")
     public ResponseEntity admin() {
         return ResponseEntity.ok(new MessageResponse("welcome to admin"));
     }
