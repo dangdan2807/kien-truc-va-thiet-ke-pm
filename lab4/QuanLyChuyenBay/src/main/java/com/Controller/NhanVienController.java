@@ -1,6 +1,7 @@
 package com.Controller;
 
 import com.entity.NhanVien;
+import com.google.gson.Gson;
 import com.service.NhanVienService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,5 +36,13 @@ public class NhanVienController {
         Object obj = nhanVienService.getTotalSalary();
         Long luong = obj != null ? (Long) obj : 0L;
         return "{ \"tong_luong_nhan_vien\": " + luong + "}";
+    }
+
+    // cau 9
+    // [GET] /nhan-vien/phi-cong-lai-boeing
+    @GetMapping("/phi-cong-lai-boeing")
+    public String getMaNhanVienByLoaiMayBayBoeing() {
+        List<String> dsMaNhanVien = nhanVienService.getMaNhanVienByLoaiMayBayBoeing();
+        return "{\"ma_phi_congs\":" + dsMaNhanVien + "}";
     }
 }

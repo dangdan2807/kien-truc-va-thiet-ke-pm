@@ -23,4 +23,10 @@ public class NhanVienServiceImpl implements NhanVienService{
         Object luong = nhanVienRepository.getTotalSalary();
         return luong;
     }
+
+    @Override
+    public List<String> getMaNhanVienByLoaiMayBayBoeing() {
+        List<String> dsMaNhanVien = nhanVienRepository.getMaNhanVienByLoaiMayBayBoeing();
+        return dsMaNhanVien;
+    }
 }

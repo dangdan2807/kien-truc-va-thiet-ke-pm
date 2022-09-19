@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "chungnhan")
 @Getter
 @Setter
 @IdClass(ChungNhanPK.class)

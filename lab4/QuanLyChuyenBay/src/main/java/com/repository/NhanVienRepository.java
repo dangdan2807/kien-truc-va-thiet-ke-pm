@@ -12,4 +12,10 @@ public interface NhanVienRepository extends JpaRepository<NhanVien, String> {
 
     @Query(value = "select SUM(nv.luong) from NhanVien nv")
     public Object getTotalSalary();
+
+    @Query("select nv.maNV from NhanVien nv, ChungNhan cn, MayBay mb " +
+            "where mb.maMB = cn.MaMB " +
+            "and cn.MaNV = nv.maNV " +
+            "and mb.loai like 'Boeing%'")
+    public List<String> getMaNhanVienByLoaiMayBayBoeing();
 }
