@@ -1,4 +1,4 @@
-package com.server;
+package com.service;
 
 import com.entity.NhanVien;
 import com.repository.NhanVienRepository;

@@ -12,4 +12,8 @@ public interface ChuyenBayRepository extends JpaRepository<ChuyenBay, String> {
 
     List<ChuyenBay> findAllByDoDaiGreaterThanEqualAndDoDaiLessThanEqual(int from, int to);
 
+    List<ChuyenBay> findAllByGaDiAndGaDen(String gaDi, String gaDen);
+
+    int countChuyenBayByGaDi(String gaDi);
+
 }

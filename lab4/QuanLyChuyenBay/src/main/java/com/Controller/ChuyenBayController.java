@@ -1,7 +1,7 @@
 package com.Controller;
 
 import com.entity.ChuyenBay;
-import com.server.ChuyenBayService;
+import com.service.ChuyenBayService;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +23,9 @@ public class ChuyenBayController {
     // [GET] /chuyen-bay/di-da-lat
     @GetMapping("/di-da-lat")
     public List<ChuyenBay> getChuyenBayDiDaLat() {
-        List<ChuyenBay> dsChuyenBay = chuyenBayService.getChuyenBayDiDatLat();
+        String maGaDen = "DAD";
+        List<ChuyenBay> dsChuyenBay = chuyenBayService.getChuyenBayDen(maGaDen);
         logger.info("controller - getChuyenBayDiDaLat:" + dsChuyenBay.size());
-
         return dsChuyenBay;
     }
 
@@ -42,9 +42,28 @@ public class ChuyenBayController {
     // [GET] /chuyen-bay/do-dai-duong-bay?tu=?&den=?
     @GetMapping("/do-dai-duong-bay")
     public List<ChuyenBay> getChuyenBayCoDoDaiDuongBayTuADenB(@RequestParam(name = "tu", required = false, defaultValue = "0") Integer tu,
-                                        @RequestParam(value = "den", required = false, defaultValue = "10000") Integer den) {
+                                                              @RequestParam(value = "den", required = false, defaultValue = "10000") Integer den) {
         List<ChuyenBay> dsChuyenBay = chuyenBayService.findAllByDoDaiGreaterThanEqualAndDoDaiLessThanEqual(tu, den);
 //        logger.info("controller - getChuyenBayCoDoDaiDuongBayTuADenB:" + dsChuyenBay.size());
         return dsChuyenBay;
+    }
+
+    // cau 5
+    // [GET] /chuyen-bay/sai-gon-di-buon-me-thuoc
+    @GetMapping("/sai-gon-di-buon-me-thuoc")
+    public List<ChuyenBay> getChuyenBayTuSaiGonDiBMT() {
+        String gaDi = "SGN";
+        String gaDen = "BMV";
+        List<ChuyenBay> dsChuyenBay = chuyenBayService.findAllByGaDiAndGaDen(gaDi, gaDen);
+        return dsChuyenBay;
+    }
+
+    // cau 6
+    // [GET] /chuyen-bay/so-chuyen/sai-gon
+    @GetMapping("/so-chuyen/sai-gon")
+    public String getSoChuyenBayTuSaiGonDi() {
+        String gaDi = "SGN";
+        int count = chuyenBayService.countChuyenBayByGaDi(gaDi);
+        return "{ \"so_chuyen_bay\": " + count + "}";
     }
 }
