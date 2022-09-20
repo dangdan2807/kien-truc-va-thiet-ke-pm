@@ -1,5 +1,6 @@
 package com.service;
 
+import com.entity.MayBay;
 import com.repository.MayBayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,10 @@ public class MayBayServiceImpl implements MayBayService {
     @Override
     public List<String> getMaMBByHoPhiCong(String hoPhiCong) {
         return mayBayRepository.getMaMBByHoPhiCong(hoPhiCong);
+    }
+
+    @Override
+    public List<MayBay> getMayBayCoTheThucHienChuyenBay(String maCB) {
+        return mayBayRepository.getMayBayCoTheThucHienChuyenBay(maCB);
     }
 }

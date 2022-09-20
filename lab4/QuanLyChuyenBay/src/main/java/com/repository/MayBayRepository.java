@@ -16,4 +16,10 @@ public interface MayBayRepository extends JpaRepository<MayBay, Long> {
             "and cn.MaNV = nv.maNV " +
             "and nv.ten like concat(:hoPhiCong, '%')")
     public List<String> getMaMBByHoPhiCong(@Param("hoPhiCong") String hoPhiCong);
+
+    @Query("select m from MayBay m " +
+            "where m.tamBay >= ( " +
+            "   select c.doDai from ChuyenBay c " +
+            "   where c.maCB = :maCB)")
+    public List<MayBay> getMayBayCoTheThucHienChuyenBay(@Param("maCB") String maCB);
 }
