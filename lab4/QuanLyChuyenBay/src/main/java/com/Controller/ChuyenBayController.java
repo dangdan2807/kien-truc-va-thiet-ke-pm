@@ -1,15 +1,16 @@
 package com.Controller;
 
 import com.entity.ChuyenBay;
+import com.entity.MayBay;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.service.ChuyenBayService;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 @RestController()
@@ -65,5 +66,17 @@ public class ChuyenBayController {
         String gaDi = "SGN";
         int count = chuyenBayService.countChuyenBayByGaDi(gaDi);
         return "{ \"so_chuyen_bay\": " + count + "}";
+    }
+
+    // cau 14
+    // [GET] /chuyen-bay/thuc-hien-chuyen-bay/{tenMB}
+    @GetMapping("/thuc-hien-chuyen-bay/{tenMB}")
+    public String getChuyenBayByTenMayBay(@PathVariable String tenMB) {
+        tenMB = tenMB.replace("-", " ");
+        List<ChuyenBay> dsChuyenBay = chuyenBayService.findChuyenBayByTenMayBayAnd(tenMB);
+        Gson gson = new Gson();
+        Type chuyenBayType = new TypeToken<List<ChuyenBay>>(){}.getType();
+        String json = gson.toJson(dsChuyenBay, chuyenBayType);
+        return "{\"danh_sach_chuyen_bay\":" + json + "}";
     }
 }

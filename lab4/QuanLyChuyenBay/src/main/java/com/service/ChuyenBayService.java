@@ -10,4 +10,6 @@ public interface ChuyenBayService {
     List<ChuyenBay> findAllByDoDaiGreaterThanEqualAndDoDaiLessThanEqual(int from, int to);
     List<ChuyenBay> findAllByGaDiAndGaDen(String gaDi, String gaDen);
     int countChuyenBayByGaDi(String gaDi);
+
+    List<ChuyenBay> findChuyenBayByTenMayBayAnd(String tenMB);
 }

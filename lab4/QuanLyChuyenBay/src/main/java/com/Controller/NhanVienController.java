@@ -61,8 +61,8 @@ public class NhanVienController {
         return "{\"danh_sach_phi_cong\":" + json + "}";
     }
 
-    // cau 10
-    // [GET] /nhan-vien/phi-cong-lai-may-bay?mamb=747
+    // cau 12
+    // [GET] /nhan-vien/phi-cong-lai-may-bay-boeing-airbus
     @GetMapping("/phi-cong-lai-may-bay-boeing-airbus")
     public String getNhanVienLaiBoeingAndAirbus() {
         List<NhanVien> dsNhanVien = new ArrayList<>();
