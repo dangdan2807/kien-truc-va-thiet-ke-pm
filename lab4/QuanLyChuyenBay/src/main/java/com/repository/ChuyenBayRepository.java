@@ -15,5 +15,4 @@ public interface ChuyenBayRepository extends JpaRepository<ChuyenBay, String> {
     List<ChuyenBay> findAllByGaDiAndGaDen(String gaDi, String gaDen);
 
     int countChuyenBayByGaDi(String gaDi);
-
 }

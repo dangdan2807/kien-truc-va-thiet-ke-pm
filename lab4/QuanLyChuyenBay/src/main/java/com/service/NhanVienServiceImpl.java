@@ -29,4 +29,9 @@ public class NhanVienServiceImpl implements NhanVienService{
         List<String> dsMaNhanVien = nhanVienRepository.getMaNhanVienByLoaiMayBayBoeing();
         return dsMaNhanVien;
     }
+
+    @Override
+    public List<NhanVien> findNhanVienByMaMB(int maMB) {
+        return nhanVienRepository.findNhanVienByMaMB(maMB);
+    }
 }

@@ -2,15 +2,15 @@ package com.Controller;
 
 import com.entity.NhanVien;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.service.NhanVienService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController()
@@ -24,9 +24,12 @@ public class NhanVienController {
     // cau 3
     // [GET] /nhan-vien/luong-nho-hon/{luong}
     @GetMapping("/luong-nho-hon/{luong}")
-    public List<NhanVien> getNhanVienCoLuongNhoHon(@PathVariable(name = "luong") int luong) {
+    public String getNhanVienCoLuongNhoHon(@PathVariable(name = "luong") int luong) {
         List<NhanVien> dsNhanVien = nhanVienService.findAllByLuongLessThan(luong);
-        return dsNhanVien;
+        Gson gson = new Gson();
+        Type nhanVienTypeList = new TypeToken<List<NhanVien>>(){}.getType();
+        String json = gson.toJson(dsNhanVien, nhanVienTypeList);
+        return "{\"danh_sach_nhan_vien\":" + json + "}";
     }
 
     // cau 8
@@ -44,5 +47,19 @@ public class NhanVienController {
     public String getMaNhanVienByLoaiMayBayBoeing() {
         List<String> dsMaNhanVien = nhanVienService.getMaNhanVienByLoaiMayBayBoeing();
         return "{\"ma_phi_congs\":" + dsMaNhanVien + "}";
+    }
+
+    // cau 10
+    // [GET] /nhan-vien/phi-cong-lai-may-bay?mamb=747
+    @GetMapping("/phi-cong-lai-may-bay")
+    public String getNhanVienByMaMayBay(@RequestParam(name = "mamb", required = false, defaultValue = "0") Integer maMB) {
+//        maMB = 747;
+        List<NhanVien> dsNhanVien = new ArrayList<>();
+        dsNhanVien = nhanVienService.findNhanVienByMaMB(maMB);
+        Gson gson = new Gson();
+        Type nhanVienTypeList = new TypeToken<List<NhanVien>>(){}.getType();
+        String json = gson.toJson(dsNhanVien, nhanVienTypeList);
+        return "{\"danh_sach_phi_cong\":" + json + "}";
+//        return json;
     }
 }
