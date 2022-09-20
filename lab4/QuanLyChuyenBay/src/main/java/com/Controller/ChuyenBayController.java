@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Type;
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,7 +73,7 @@ public class ChuyenBayController {
     // [GET] /chuyen-bay/so-chuyen/{gaDi}
     @GetMapping("/so-chuyen/{gaDi}")
     public String getSoChuyenBayTuGaDi(@PathVariable String gaDi) {
-        if (gaDi.equals("sai-gon"))  {
+        if (gaDi.equals("sai-gon")) {
             gaDi = "SGN";
         }
         int count = chuyenBayService.countChuyenBayByGaDi(gaDi);
@@ -108,4 +109,50 @@ public class ChuyenBayController {
         String json = gson.toJson(dsChuyenBay, chuyenBayType);
         return "{\"danh_sach_chuyen_bay\":" + json + "}";
     }
+
+    // cau 19
+    // [GET] /chuyen-bay/tong-chi-phi-tra-cho-phi-cong/{gaDi}/
+    @GetMapping("/tong-chi-phi-tra-cho-phi-cong/{gaDi}")
+    public String getChuyenBayTuADenBE(@PathVariable String gaDi) {
+        Double chiPhi = chuyenBayService.getTotalChiPhiTraChoPhiCong(gaDi);
+        Gson gson = new Gson();
+        Map<String, Object> req = new HashMap<String, Object>();
+        req.put("tong_chi_phi", chiPhi);
+        String json = gson.toJson(req);
+        return json;
+    }
+
+    // cau 20
+    // [GET] /chuyen-bay/truoc-gio/{gioDi}/
+    @GetMapping("/truoc-gio/{gioDi}")
+    public String getChuyenBayTruocxH(@PathVariable String gioDi) {
+        if (gioDi.equals("h") || gioDi.equals(" ") || gioDi.equals("m") || gioDi.equals("s")) {
+            gioDi.replace("[hm]", ":").replace("s", "");
+        }
+        Time time = Time.valueOf(gioDi);
+        List<ChuyenBay> dsChuyenBay = chuyenBayService.findChuyenBayByGioDi(time);
+        Gson gson = new Gson();
+        Type chuyenBayType = new TypeToken<List<ChuyenBay>>() {
+        }.getType();
+        String json = gson.toJson(dsChuyenBay, chuyenBayType);
+        return "{ \"ds_chuyen_bay\": " + json + "}";
+    }
+
+    // cau 21
+    // [GET] /chuyen-bay/truoc-gio/{gaDi}/
+    @GetMapping("/so-chuyen-bay-truoc-12-gio/{gaDi}")
+    public String getSoChuyenBayTruoc12HByGaDi(@PathVariable String gaDi) {
+        Time gioDi = Time.valueOf("12:00:00");
+        int soChuyenBay = chuyenBayService.getSoChuyenBayByGioDiAndGaDi(gioDi, gaDi);
+        Gson gson = new Gson();
+
+        Map<String, Object> req = new HashMap<>();
+        req.put("so_chuyen_bay", soChuyenBay);
+        req.put("gaDi", gaDi);
+
+        String json = gson.toJson(req);
+        return json;
+    }
+
+
 }

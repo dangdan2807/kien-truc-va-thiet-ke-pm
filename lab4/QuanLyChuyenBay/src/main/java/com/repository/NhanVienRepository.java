@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface NhanVienRepository extends JpaRepository<NhanVien, String> {
     List<NhanVien> findAllByLuongLessThan(int luong);
@@ -38,4 +39,33 @@ public interface NhanVienRepository extends JpaRepository<NhanVien, String> {
             " group by c.MaNV" +
             ")")
     public List<NhanVien> findNhanVienLaiBoeingAndAirbus();
+
+    @Query("select n from NhanVien n " +
+            "where n.maNV in ( " +
+            "   select c.MaNV from ChungNhan c " +
+            "   group by c.MaNV " +
+            "   having count(c.MaMB) >= 3 " +
+            ")")
+    public List<NhanVien> findNhanVienLai3LoaiMB();
+
+    @Query("select n.maNV as maNV, max(m.tamBay) as tamBayLonNhat " +
+            "from NhanVien n, ChungNhan c, MayBay m " +
+            "where n.maNV = c.MaNV  " +
+            "and c.MaMB = m.maMB " +
+            "group by c.MaNV " +
+            "having count(c.MaMB) >= 3")
+    public List<Map<String, Object>> findMaNhanVienLai3LoaiMBVaTamBayLonNhat();
+
+    @Query("select n.maNV as maNV, count(m.maMB) as soMayBayLaiDuoc " +
+            "from ChungNhan c, MayBay m, NhanVien n " +
+            "where c.MaMB = m.maMB " +
+            "and c.MaNV = n.maNV " +
+            "group by c.MaNV  ")
+    public List<Map<String, Object>> findMaNhanVienVaSoMBLaiDc();
+
+    @Query("select n from NhanVien n " +
+            "where n.maNV not in (" +
+            "   select c.MaNV from ChungNhan c " +
+            "   group by c.MaNV )")
+    public List<NhanVien> findNhanVienByKhongPhaiLaPhiCong();
 }

@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController()
 @RequestMapping("/nhan-vien")
@@ -28,8 +30,10 @@ public class NhanVienController {
         List<NhanVien> dsNhanVien = nhanVienService.findAllByLuongLessThan(luong);
         Gson gson = new Gson();
         Type nhanVienTypeList = new TypeToken<List<NhanVien>>(){}.getType();
-        String json = gson.toJson(dsNhanVien, nhanVienTypeList);
-        return "{\"danh_sach_nhan_vien\":" + json + "}";
+        Map<String, List<NhanVien>> res = new HashMap<>();
+        res.put("ds_nhan_vien", dsNhanVien);
+        String json = gson.toJson(res);
+        return json;
     }
 
     // cau 8
@@ -38,7 +42,12 @@ public class NhanVienController {
     public String getTongLuongNhanVien() {
         Object obj = nhanVienService.getTotalSalary();
         Long luong = obj != null ? (Long) obj : 0L;
-        return "{ \"tong_luong_nhan_vien\": " + luong + "}";
+        Map<String, Long> res = new HashMap<>();
+        res.put("tong_luong_nhan_vien", luong);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(res);
+        return json;
     }
 
     // cau 9
@@ -47,9 +56,10 @@ public class NhanVienController {
     public String getMaNhanVienByLoaiMayBayBoeing() {
         List<String> dsMaNhanVien = nhanVienService.getMaNhanVienByLoaiMayBayBoeing();
         Gson gson = new Gson();
-        String json = gson.toJson(dsMaNhanVien);
-        return "{\"danh_sach_ma_phi_cong\":" + json + "}";
-//        return "{\"ma_phi_congs\":" + dsMaNhanVien + "}";
+        Map<String, List<String>> res = new HashMap<>();
+        res.put("ds_ma_phi_cong", dsMaNhanVien);
+        String json = gson.toJson(res);
+        return json;
     }
 
     // cau 10
@@ -82,7 +92,57 @@ public class NhanVienController {
     public String getTenNhanVienLaiBoeing() {
         List<String> dsTenNV = nhanVienService.getTenNhanVienByLoaiMayBayBoeing();
         Gson gson = new Gson();
-        String json = gson.toJson(dsTenNV);
-        return "{\"danh_sach_ten_phi_cong\":" + json + "}";
+        Map<String, List<String>> res = new HashMap<>();
+        res.put("ds_ten_phi_cong", dsTenNV);
+        String json = gson.toJson(res);
+        return json;
+    }
+
+    // cau 22
+    // [GET] /nhan-vien/phi-cong-lai-3-loai-mb
+    @GetMapping("/phi-cong-lai-3-loai-mb")
+    public String getMaNhanVienLai3LoaiMB() {
+        List<String> dsTenNV = nhanVienService.getMaNhanVienLai3LoaiMB();
+        Gson gson = new Gson();
+        Map<String, List<String>> res = new HashMap<>();
+        res.put("ds_ma_phi_cong", dsTenNV);
+        String json = gson.toJson(res);
+        return json;
+    }
+
+    // cau 23
+    // [GET] /nhan-vien/phi-cong-lai-3-loai-mb-va-tam-bay
+    @GetMapping("/phi-cong-lai-3-loai-mb-va-tam-bay")
+    public String getMaNhanVienLai3LoaiMBVaTamBay() {
+        List<Map<String, Object>> dsNhanVien = nhanVienService.getMaNhanVienLai3LoaiMBVaTamBay();
+        Gson gson = new Gson();
+        Map<String, List<Map<String, Object>>> res = new HashMap<>();
+        res.put("ds", dsNhanVien);
+        String json = gson.toJson(res);
+        return json;
+    }
+
+    // cau 24
+    // [GET] /nhan-vien/so-may-bay-phi-cong-lai-duoc
+    @GetMapping("/so-may-bay-phi-cong-lai-duoc")
+    public String getMaNhanVienVaSoLuongMayBayLaiDuoc() {
+        List<Map<String, Object>> dsNhanVien = nhanVienService.getMaNhanVienVaSoMBLaiDc();
+        Gson gson = new Gson();
+        Map<String, List<Map<String, Object>>> res = new HashMap<>();
+        res.put("ds", dsNhanVien);
+        String json = gson.toJson(res);
+        return json;
+    }
+
+    // cau 25
+    // [GET] /nhan-vien/khong-phai-la-phi-cong
+    @GetMapping("/khong-phai-la-phi-cong")
+    public String getNhanVienKhongPhaiLaPhiCong() {
+        List<NhanVien> dsNhanVien = nhanVienService.getNhanVienByKhongPhaiLaPhiCong();
+        Gson gson = new Gson();
+        Map<String, List<NhanVien>> res = new HashMap<>();
+        res.put("ds_nhan_vien", dsNhanVien);
+        String json = gson.toJson(res);
+        return json;
     }
 }

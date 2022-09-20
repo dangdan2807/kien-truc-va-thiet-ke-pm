@@ -1,7 +1,9 @@
 package com.service;
 
 import com.entity.ChuyenBay;
+import com.entity.NhanVien;
 
+import java.sql.Time;
 import java.util.List;
 
 public interface ChuyenBayService {
@@ -18,4 +20,10 @@ public interface ChuyenBayService {
     List<ChuyenBay> findChuyenBayByTenMayBayAnd(String tenMB);
 
     List<ChuyenBay> findChuyenBayByGaDiAndGaDen(String gaDi, String gaDen);
+
+    Double getTotalChiPhiTraChoPhiCong(String gaDi);
+
+    List<ChuyenBay> findChuyenBayByGioDi(Time gioDi);
+
+    int getSoChuyenBayByGioDiAndGaDi(Time gioDi, String gaDi);
 }

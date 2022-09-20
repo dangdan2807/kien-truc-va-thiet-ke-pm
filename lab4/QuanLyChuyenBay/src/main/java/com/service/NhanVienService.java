@@ -1,9 +1,9 @@
 package com.service;
 
 import com.entity.NhanVien;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface NhanVienService {
     public List<NhanVien> findAllByLuongLessThan(int luong);
@@ -17,4 +17,12 @@ public interface NhanVienService {
     public List<NhanVien> findNhanVienLaiBoeingAndAirbus();
 
     public List<String> getTenNhanVienByLoaiMayBayBoeing();
+
+    public List<String> getMaNhanVienLai3LoaiMB();
+
+    public List<Map<String, Object>> getMaNhanVienLai3LoaiMBVaTamBay();
+
+    public List<Map<String, Object>> getMaNhanVienVaSoMBLaiDc();
+
+    public List<NhanVien> getNhanVienByKhongPhaiLaPhiCong();
 }

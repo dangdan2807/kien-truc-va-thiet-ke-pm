@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.sql.Time;
 import java.util.List;
 
 public interface ChuyenBayRepository extends JpaRepository<ChuyenBay, String> {
@@ -25,5 +26,11 @@ public interface ChuyenBayRepository extends JpaRepository<ChuyenBay, String> {
     List<ChuyenBay> findChuyenBayByTenMayBayAnd(@Param("tenMB") String tenMB);
 
     List<ChuyenBay> findChuyenBayByGaDiAndGaDen(String gaDi, String gaDen);
+
+    List<ChuyenBay> findChuyenBayByGaDi(String gaDi);
+
+    List<ChuyenBay> findChuyenBayByGioDiLessThan(Time gioDi);
+
+    List<ChuyenBay> findChuyenBayByGioDiLessThanAndAndGaDi(Time gioDi, String gaDi);
 
 }

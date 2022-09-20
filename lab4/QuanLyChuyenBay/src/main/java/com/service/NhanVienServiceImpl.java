@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 @Service
 public class NhanVienServiceImpl implements NhanVienService{
@@ -50,5 +50,31 @@ public class NhanVienServiceImpl implements NhanVienService{
         List<String> dsTenNV = new ArrayList<>();
         dsNhanVien.stream().forEach(item -> dsTenNV.add(item.getTen()));
         return dsTenNV;
+    }
+
+    @Override
+    public List<String> getMaNhanVienLai3LoaiMB() {
+        List<NhanVien> dsNhanVien = nhanVienRepository.findNhanVienLai3LoaiMB();
+        List<String> dsMaNV = new ArrayList<>();
+        dsNhanVien.stream().forEach(item -> dsMaNV.add(item.getMaNV()));
+        return dsMaNV;
+    }
+
+    @Override
+    public List<Map<String, Object>> getMaNhanVienLai3LoaiMBVaTamBay() {
+        List<Map<String, Object>> ds = nhanVienRepository.findMaNhanVienLai3LoaiMBVaTamBayLonNhat();
+        return ds;
+    }
+
+    @Override
+    public List<Map<String, Object>> getMaNhanVienVaSoMBLaiDc() {
+        List<Map<String, Object>> ds = nhanVienRepository.findMaNhanVienVaSoMBLaiDc();
+        return ds;
+    }
+
+    @Override
+    public List<NhanVien> getNhanVienByKhongPhaiLaPhiCong() {
+        List<NhanVien> dsNhanVien = nhanVienRepository.findNhanVienByKhongPhaiLaPhiCong();
+        return dsNhanVien;
     }
 }

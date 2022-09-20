@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.Date;
 
 @Entity
@@ -29,10 +30,10 @@ public class ChuyenBay implements Serializable {
     private int doDai;
 
     @Column(name="giodi")
-    private Date gioDi;
+    private Time gioDi;
 
     @Column(name="gioden")
-    private Date gioDen;
+    private Time gioDen;
 
     @Column(name="chiphi")
     private int chiPhi;
@@ -40,7 +41,7 @@ public class ChuyenBay implements Serializable {
     public ChuyenBay() {
     }
 
-    public ChuyenBay(String gaDi, String gaDen, int doDai, Date gioDi, Date gioDen, int chiPhi) {
+    public ChuyenBay(String gaDi, String gaDen, int doDai, Time gioDi, Time gioDen, int chiPhi) {
         this.gaDi = gaDi;
         this.gaDen = gaDen;
         this.doDai = doDai;
@@ -49,7 +50,7 @@ public class ChuyenBay implements Serializable {
         this.chiPhi = chiPhi;
     }
 
-    public ChuyenBay(String macb, String gaDi, String gaDen, int doDai, Date gioDi, Date gioDen, int chiPhi) {
+    public ChuyenBay(String macb, String gaDi, String gaDen, int doDai, Time gioDi, Time gioDen, int chiPhi) {
         this.maCB = macb;
         this.gaDi = gaDi;
         this.gaDen = gaDen;
