@@ -24,4 +24,17 @@ public interface NhanVienRepository extends JpaRepository<NhanVien, String> {
             "and cn.MaNV = nv.maNV " +
             "and mb.maMB = :maMB")
     public List<NhanVien> findNhanVienByMaMB(@Param("maMB") int maMB);
+
+    @Query("select n from NhanVien n " +
+            "where n.maNV in ( " +
+            " select c.MaNV from ChungNhan c " +
+            " where c.MaMB in (" +
+            "   select m1.maMB  from MayBay m1 " +
+            "   where m1.loai like 'Airbus%') " +
+            " or c.MaMB in ( " +
+            "   select m2.maMB  from MayBay m2 " +
+            "   where m2.loai like 'Boeing%') " +
+            " group by c.MaNV" +
+            ")")
+    public List<NhanVien> findNhanVienLaiBoeingAndAirbus();
 }

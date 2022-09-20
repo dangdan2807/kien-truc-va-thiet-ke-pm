@@ -34,4 +34,9 @@ public class NhanVienServiceImpl implements NhanVienService{
     public List<NhanVien> findNhanVienByMaMB(int maMB) {
         return nhanVienRepository.findNhanVienByMaMB(maMB);
     }
+
+    @Override
+    public List<NhanVien> findNhanVienLaiBoeingAndAirbus() {
+        return nhanVienRepository.findNhanVienLaiBoeingAndAirbus();
+    }
 }
