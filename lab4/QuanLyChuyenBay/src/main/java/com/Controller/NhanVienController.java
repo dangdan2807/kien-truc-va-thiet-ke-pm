@@ -53,13 +53,11 @@ public class NhanVienController {
     // [GET] /nhan-vien/phi-cong-lai-may-bay?mamb=747
     @GetMapping("/phi-cong-lai-may-bay")
     public String getNhanVienByMaMayBay(@RequestParam(name = "mamb", required = false, defaultValue = "0") Integer maMB) {
-//        maMB = 747;
         List<NhanVien> dsNhanVien = new ArrayList<>();
         dsNhanVien = nhanVienService.findNhanVienByMaMB(maMB);
         Gson gson = new Gson();
         Type nhanVienTypeList = new TypeToken<List<NhanVien>>(){}.getType();
         String json = gson.toJson(dsNhanVien, nhanVienTypeList);
         return "{\"danh_sach_phi_cong\":" + json + "}";
-//        return json;
     }
 }

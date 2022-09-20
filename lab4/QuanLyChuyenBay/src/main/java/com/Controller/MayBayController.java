@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController()
 @RequestMapping("/may-bay")
 public class MayBayController {
@@ -20,5 +22,14 @@ public class MayBayController {
         String loai = "Boeing";
         int count = mayBayService.countMayBayByLoaiLike(loai);
         return "{ \"so_may_bay\": " + count + "}";
+    }
+
+    // cau 11
+    // [GET] /may-bay/phi-cong-ho-nguyen
+    @GetMapping("/phi-cong-ho-nguyen")
+    public String getMaMayBayDoPhiCongHoNguyenLai() {
+        String hoPhiCong = "Nguyen";
+        List<String> dsMaMayBay = mayBayService.getMaMBByHoPhiCong(hoPhiCong);
+        return "{ \"ds_ma_may_bay\": " + dsMaMayBay + "}";
     }
 }

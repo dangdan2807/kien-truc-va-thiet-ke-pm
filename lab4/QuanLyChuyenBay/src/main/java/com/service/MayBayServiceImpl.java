@@ -4,6 +4,8 @@ import com.repository.MayBayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MayBayServiceImpl implements MayBayService {
     @Autowired
@@ -12,5 +14,10 @@ public class MayBayServiceImpl implements MayBayService {
     @Override
     public int countMayBayByLoaiLike(String loaiMayBay) {
         return mayBayRepository.countMayBayByLoaiLike(loaiMayBay);
+    }
+
+    @Override
+    public List<String> getMaMBByHoPhiCong(String hoPhiCong) {
+        return mayBayRepository.getMaMBByHoPhiCong(hoPhiCong);
     }
 }
