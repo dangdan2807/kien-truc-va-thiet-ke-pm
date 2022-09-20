@@ -53,4 +53,9 @@ public class ChuyenBayServiceImpl implements ChuyenBayService {
     public List<ChuyenBay> findChuyenBayByTenMayBayAnd(String tenMB) {
         return chuyenBayRepository.findChuyenBayByTenMayBayAnd(tenMB);
     }
+
+    @Override
+    public List<ChuyenBay> findChuyenBayByGaDiAndGaDen(String gaDi, String gaDen) {
+        return chuyenBayRepository.findChuyenBayByGaDiAndGaDen(gaDi, gaDen);
+    }
 }

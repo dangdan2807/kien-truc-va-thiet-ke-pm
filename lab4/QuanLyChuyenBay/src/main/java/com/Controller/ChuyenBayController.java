@@ -1,7 +1,6 @@
 package com.Controller;
 
 import com.entity.ChuyenBay;
-import com.entity.MayBay;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.service.ChuyenBayService;
@@ -11,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController()
 @RequestMapping("/chuyen-bay")
@@ -59,13 +60,28 @@ public class ChuyenBayController {
         return dsChuyenBay;
     }
 
+
+    // cau 18
+    // [GET] /chuyen-bay/so-chuyen/{gaDi}
+
     // cau 6
     // [GET] /chuyen-bay/so-chuyen/sai-gon
-    @GetMapping("/so-chuyen/sai-gon")
-    public String getSoChuyenBayTuSaiGonDi() {
-        String gaDi = "SGN";
+    // [GET] /chuyen-bay/so-chuyen/{gaDi}
+
+    // mẫu
+    // [GET] /chuyen-bay/so-chuyen/{gaDi}
+    @GetMapping("/so-chuyen/{gaDi}")
+    public String getSoChuyenBayTuGaDi(@PathVariable String gaDi) {
+        if (gaDi.equals("sai-gon"))  {
+            gaDi = "SGN";
+        }
         int count = chuyenBayService.countChuyenBayByGaDi(gaDi);
-        return "{ \"so_chuyen_bay\": " + count + "}";
+        Gson gson = new Gson();
+        Map<String, Object> req = new HashMap<String, Object>();
+        req.put("gaDi", gaDi);
+        req.put("soChuyenBay", count);
+        String json = gson.toJson(req);
+        return json;
     }
 
     // cau 14
@@ -75,7 +91,20 @@ public class ChuyenBayController {
         tenMB = tenMB.replace("-", " ");
         List<ChuyenBay> dsChuyenBay = chuyenBayService.findChuyenBayByTenMayBayAnd(tenMB);
         Gson gson = new Gson();
-        Type chuyenBayType = new TypeToken<List<ChuyenBay>>(){}.getType();
+        Type chuyenBayType = new TypeToken<List<ChuyenBay>>() {
+        }.getType();
+        String json = gson.toJson(dsChuyenBay, chuyenBayType);
+        return "{\"danh_sach_chuyen_bay\":" + json + "}";
+    }
+
+    // cau 17
+    // [GET] /chuyen-bay/{gaDi}/{gaDen}
+    @GetMapping("/{gaDi}/{gaDen}")
+    public String getChuyenBayTuADenB(@PathVariable String gaDi, @PathVariable String gaDen) {
+        List<ChuyenBay> dsChuyenBay = chuyenBayService.findAllByGaDiAndGaDen(gaDi, gaDen);
+        Gson gson = new Gson();
+        Type chuyenBayType = new TypeToken<List<ChuyenBay>>() {
+        }.getType();
         String json = gson.toJson(dsChuyenBay, chuyenBayType);
         return "{\"danh_sach_chuyen_bay\":" + json + "}";
     }

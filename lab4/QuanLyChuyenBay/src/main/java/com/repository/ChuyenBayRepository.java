@@ -23,4 +23,7 @@ public interface ChuyenBayRepository extends JpaRepository<ChuyenBay, String> {
             "   select m.tamBay from MayBay m" +
             "   where m.loai = :tenMB)")
     List<ChuyenBay> findChuyenBayByTenMayBayAnd(@Param("tenMB") String tenMB);
+
+    List<ChuyenBay> findChuyenBayByGaDiAndGaDen(String gaDi, String gaDen);
+
 }

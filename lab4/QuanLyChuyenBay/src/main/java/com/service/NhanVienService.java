@@ -15,4 +15,6 @@ public interface NhanVienService {
     public List<NhanVien> findNhanVienByMaMB(int maMB);
 
     public List<NhanVien> findNhanVienLaiBoeingAndAirbus();
+
+    public List<String> getTenNhanVienByLoaiMayBayBoeing();
 }

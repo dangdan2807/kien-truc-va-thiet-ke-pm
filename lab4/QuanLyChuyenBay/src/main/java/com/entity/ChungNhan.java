@@ -13,12 +13,12 @@ import java.io.Serializable;
 @IdClass(ChungNhanPK.class)
 public class ChungNhan implements Serializable {
     @Id
-    @JoinColumn(name = "MaNV", columnDefinition = "varchar(9)")
+    @JoinColumn(name = "maNV", columnDefinition = "varchar(9)")
     @ManyToOne(fetch = FetchType.EAGER)
     private NhanVien MaNV;
 
     @Id
-    @JoinColumn(name = "MaMB", columnDefinition = "int")
+    @JoinColumn(name = "maMB", columnDefinition = "int")
     @ManyToOne(fetch = FetchType.LAZY)
     private MayBay MaMB;
 

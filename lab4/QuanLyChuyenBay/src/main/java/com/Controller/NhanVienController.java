@@ -42,11 +42,14 @@ public class NhanVienController {
     }
 
     // cau 9
-    // [GET] /nhan-vien/phi-cong-lai-boeing
-    @GetMapping("/phi-cong-lai-boeing")
+    // [GET] /nhan-vien/phi-cong-lai-boeing/ma
+    @GetMapping("/phi-cong-lai-boeing/ma")
     public String getMaNhanVienByLoaiMayBayBoeing() {
         List<String> dsMaNhanVien = nhanVienService.getMaNhanVienByLoaiMayBayBoeing();
-        return "{\"ma_phi_congs\":" + dsMaNhanVien + "}";
+        Gson gson = new Gson();
+        String json = gson.toJson(dsMaNhanVien);
+        return "{\"danh_sach_ma_phi_cong\":" + json + "}";
+//        return "{\"ma_phi_congs\":" + dsMaNhanVien + "}";
     }
 
     // cau 10
@@ -71,5 +74,15 @@ public class NhanVienController {
         Type nhanVienTypeList = new TypeToken<List<NhanVien>>(){}.getType();
         String json = gson.toJson(dsNhanVien, nhanVienTypeList);
         return "{\"danh_sach_phi_cong\":" + json + "}";
+    }
+
+    // cau 15
+    // [GET] /nhan-vien/phi-cong-lai-boeing/ten
+    @GetMapping("/phi-cong-lai-boeing/ten")
+    public String getTenNhanVienLaiBoeing() {
+        List<String> dsTenNV = nhanVienService.getTenNhanVienByLoaiMayBayBoeing();
+        Gson gson = new Gson();
+        String json = gson.toJson(dsTenNV);
+        return "{\"danh_sach_ten_phi_cong\":" + json + "}";
     }
 }

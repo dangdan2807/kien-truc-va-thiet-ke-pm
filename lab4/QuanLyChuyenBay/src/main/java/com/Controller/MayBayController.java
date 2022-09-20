@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @RestController()
 @RequestMapping("/may-bay")
@@ -47,6 +49,18 @@ public class MayBayController {
         Gson gson = new Gson();
         Type mayBayTypeList = new TypeToken<List<MayBay>>(){}.getType();
         String json = gson.toJson(dsMaMayBay, mayBayTypeList);
+        return "{\"danh_sach_may_bay\":" + json + "}";
+    }
+
+    // cau 16
+    // [GET] /may-bay/loai-may-bay-va-so-phi-cong-lai
+    @GetMapping("/loai-may-bay-va-so-phi-cong-lai")
+    public String getLoaiMayBayVaSoPhiCongLai() {
+        List<Map<String, Object>> dsMayBay = mayBayService.getLoaiMayBayVaSoPhiCongLai();
+
+        Gson gson = new Gson();
+        Type mayBayTypeList = new TypeToken<List<MayBay>>(){}.getType();
+        String json = gson.toJson(dsMayBay, mayBayTypeList);
         return "{\"danh_sach_may_bay\":" + json + "}";
     }
 }

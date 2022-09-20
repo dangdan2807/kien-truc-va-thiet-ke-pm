@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MayBayRepository extends JpaRepository<MayBay, Long> {
     @Query("select count(mb.maMB) from MayBay mb where mb.loai like 'Boeing%'")
@@ -22,4 +23,11 @@ public interface MayBayRepository extends JpaRepository<MayBay, Long> {
             "   select c.doDai from ChuyenBay c " +
             "   where c.maCB = :maCB)")
     public List<MayBay> getMayBayCoTheThucHienChuyenBay(@Param("maCB") String maCB);
+
+    @Query("select m.maMB as maMB, m.loai as loai, count(n.maNV) as soPhiCong " +
+            "from MayBay m, ChungNhan c, NhanVien n " +
+            "where m.maMB = c.MaMB " +
+            "and c.MaNV = n.maNV " +
+            "group by m.maMB, m.loai")
+    public List<Map<String, Object>> getLoaiMayBayVaSoPhiCongLai();
 }

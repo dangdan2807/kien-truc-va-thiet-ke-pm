@@ -5,7 +5,9 @@ import com.repository.NhanVienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class NhanVienServiceImpl implements NhanVienService{
@@ -26,8 +28,10 @@ public class NhanVienServiceImpl implements NhanVienService{
 
     @Override
     public List<String> getMaNhanVienByLoaiMayBayBoeing() {
-        List<String> dsMaNhanVien = nhanVienRepository.getMaNhanVienByLoaiMayBayBoeing();
-        return dsMaNhanVien;
+        List<NhanVien> dsMaNhanVien = nhanVienRepository.getNhanVienByLoaiMayBayBoeing();
+        List<String> dsMaNV = new ArrayList<>();
+        dsMaNhanVien.stream().forEach(item -> dsMaNV.add(item.getMaNV()));
+        return dsMaNV;
     }
 
     @Override
@@ -38,5 +42,13 @@ public class NhanVienServiceImpl implements NhanVienService{
     @Override
     public List<NhanVien> findNhanVienLaiBoeingAndAirbus() {
         return nhanVienRepository.findNhanVienLaiBoeingAndAirbus();
+    }
+
+    @Override
+    public List<String> getTenNhanVienByLoaiMayBayBoeing() {
+        List<NhanVien> dsNhanVien = nhanVienRepository.getNhanVienByLoaiMayBayBoeing();
+        List<String> dsTenNV = new ArrayList<>();
+        dsNhanVien.stream().forEach(item -> dsTenNV.add(item.getTen()));
+        return dsTenNV;
     }
 }

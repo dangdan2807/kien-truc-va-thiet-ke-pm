@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MayBayServiceImpl implements MayBayService {
@@ -25,5 +26,10 @@ public class MayBayServiceImpl implements MayBayService {
     @Override
     public List<MayBay> getMayBayCoTheThucHienChuyenBay(String maCB) {
         return mayBayRepository.getMayBayCoTheThucHienChuyenBay(maCB);
+    }
+
+    @Override
+    public List<Map<String, Object>> getLoaiMayBayVaSoPhiCongLai() {
+        return mayBayRepository.getLoaiMayBayVaSoPhiCongLai();
     }
 }
