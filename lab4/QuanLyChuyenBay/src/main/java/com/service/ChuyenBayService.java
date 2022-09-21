@@ -1,7 +1,7 @@
 package com.service;
 
 import com.entity.ChuyenBay;
-import com.entity.NhanVien;
+import org.springframework.data.repository.query.Param;
 
 import java.sql.Time;
 import java.util.List;
@@ -11,19 +11,21 @@ public interface ChuyenBayService {
 
     List<ChuyenBay> getAllByDoDaiGreaterThan();
 
-    List<ChuyenBay> findAllByDoDaiGreaterThanEqualAndDoDaiLessThanEqual(int from, int to);
+    List<ChuyenBay> getAllByDoDaiGreaterThanEqualAndDoDaiLessThanEqual(int from, int to);
 
-    List<ChuyenBay> findAllByGaDiAndGaDen(String gaDi, String gaDen);
+    List<ChuyenBay> getChuyenByGaDiAndGaDen(String gaDi, String gaDen);
+
+    List<ChuyenBay> getChuyenByGaDiAndGaDenVaTroVe(String gaDi, String gaDen);
 
     int countChuyenBayByGaDi(String gaDi);
 
-    List<ChuyenBay> findChuyenBayByTenMayBayAnd(String tenMB);
+    List<ChuyenBay> getChuyenBayByTamBayAndLoaiMayBay(String tenMB);
 
-    List<ChuyenBay> findChuyenBayByGaDiAndGaDen(String gaDi, String gaDen);
+    Double getTotalChiPhiTraChoPhiCongByGaDi(String gaDi);
 
-    Double getTotalChiPhiTraChoPhiCong(String gaDi);
+    List<ChuyenBay> getChuyenBayByGioDi(Time gioDi);
 
-    List<ChuyenBay> findChuyenBayByGioDi(Time gioDi);
+    int countChuyenBayByGioDiAndGaDi(Time gioDi, String gaDi);
 
-    int getSoChuyenBayByGioDiAndGaDi(Time gioDi, String gaDi);
+    List<ChuyenBay> getChuyenBayByTamBayAndLoaiMayBayLike(@Param("tenMB") String tenMB);
 }

@@ -1,5 +1,6 @@
 package com.Controller;
 
+import com.entity.ChuyenBay;
 import com.entity.MayBay;
 import com.entity.NhanVien;
 import com.google.gson.Gson;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -19,7 +21,7 @@ import java.util.Objects;
 @RestController()
 @RequestMapping("/may-bay")
 public class MayBayController {
-
+    private static Gson gson = new Gson();
     @Autowired
     private MayBayService mayBayService;
 
@@ -29,7 +31,10 @@ public class MayBayController {
     public String getSoMayBayBoeing() {
         String loai = "Boeing";
         int count = mayBayService.countMayBayByLoaiLike(loai);
-        return "{ \"so_may_bay\": " + count + "}";
+
+        Map<String, Integer> res = new HashMap<>();
+        res.put("so_may_bay", count);
+        return gson.toJson(res);
     }
 
     // cau 11
@@ -38,7 +43,10 @@ public class MayBayController {
     public String getMaMayBayDoPhiCongHoNguyenLai() {
         String hoPhiCong = "Nguyen";
         List<String> dsMaMayBay = mayBayService.getMaMBByHoPhiCong(hoPhiCong);
-        return "{ \"ds_ma_may_bay\": " + dsMaMayBay + "}";
+
+        Map<String, List<String>> res = new HashMap<>();
+        res.put("ds_ma_may_bay", dsMaMayBay);
+        return gson.toJson(res);
     }
 
     // cau 13
@@ -46,10 +54,10 @@ public class MayBayController {
     @GetMapping("/thuc-hien-chuyen-bay/{maCB}")
     public String getMayBayCoTheThucHienChuyenBayByMaCB(@PathVariable String maCB) {
         List<MayBay> dsMaMayBay = mayBayService.getMayBayCoTheThucHienChuyenBay(maCB);
-        Gson gson = new Gson();
-        Type mayBayTypeList = new TypeToken<List<MayBay>>(){}.getType();
-        String json = gson.toJson(dsMaMayBay, mayBayTypeList);
-        return "{\"danh_sach_may_bay\":" + json + "}";
+
+        Map<String, List<MayBay>> res = new HashMap<>();
+        res.put("ds_chuyen_bay", dsMaMayBay);
+        return gson.toJson(res);
     }
 
     // cau 16
@@ -58,9 +66,8 @@ public class MayBayController {
     public String getLoaiMayBayVaSoPhiCongLai() {
         List<Map<String, Object>> dsMayBay = mayBayService.getLoaiMayBayVaSoPhiCongLai();
 
-        Gson gson = new Gson();
-        Type mayBayTypeList = new TypeToken<List<MayBay>>(){}.getType();
-        String json = gson.toJson(dsMayBay, mayBayTypeList);
-        return "{\"danh_sach_may_bay\":" + json + "}";
+        Map<String, List<Map<String, Object>>> res = new HashMap<>();
+        res.put("ds_chuyen_bay", dsMayBay);
+        return gson.toJson(res);
     }
 }

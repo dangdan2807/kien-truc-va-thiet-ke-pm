@@ -77,4 +77,14 @@ public class NhanVienServiceImpl implements NhanVienService{
         List<NhanVien> dsNhanVien = nhanVienRepository.findNhanVienByKhongPhaiLaPhiCong();
         return dsNhanVien;
     }
+
+    @Override
+    public List<NhanVien> getNhanVienByLuongCaoNhat() {
+        return nhanVienRepository.findNhanVienByLuongCaoNhat();
+    }
+
+    @Override
+    public Double getTotalSalaryPhiCong() {
+        return nhanVienRepository.getTotalSalaryPhiCong();
+    }
 }

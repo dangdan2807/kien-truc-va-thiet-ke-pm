@@ -68,4 +68,17 @@ public interface NhanVienRepository extends JpaRepository<NhanVien, String> {
             "   select c.MaNV from ChungNhan c " +
             "   group by c.MaNV )")
     public List<NhanVien> findNhanVienByKhongPhaiLaPhiCong();
+
+    @Query("select n from NhanVien n " +
+            "where n.luong in ( " +
+            "   select max(n2.luong) " +
+            "   from NhanVien n2 ) " +
+            "order by n.luong desc")
+    public List<NhanVien> findNhanVienByLuongCaoNhat();
+
+    @Query("select sum(n.luong) from NhanVien n " +
+            "where n.maNV in ( " +
+            "   select c.MaNV from ChungNhan c " +
+            "   group by c.MaNV) ")
+    public Double getTotalSalaryPhiCong();
 }

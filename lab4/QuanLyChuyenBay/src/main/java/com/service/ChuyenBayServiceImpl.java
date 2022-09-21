@@ -2,7 +2,6 @@ package com.service;
 
 import com.Controller.ChuyenBayController;
 import com.entity.ChuyenBay;
-import com.entity.NhanVien;
 import com.repository.ChuyenBayRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,34 +34,36 @@ public class ChuyenBayServiceImpl implements ChuyenBayService {
     }
 
     @Override
-    public List<ChuyenBay> findAllByDoDaiGreaterThanEqualAndDoDaiLessThanEqual(int from, int to) {
+    public List<ChuyenBay> getAllByDoDaiGreaterThanEqualAndDoDaiLessThanEqual(int from, int to) {
         List<ChuyenBay> chuyenbays = chuyenBayRepository.findAllByDoDaiGreaterThanEqualAndDoDaiLessThanEqual(from, to);
         return chuyenbays;
     }
 
     @Override
-    public List<ChuyenBay> findAllByGaDiAndGaDen(String gaDi, String gaDen) {
+    public List<ChuyenBay> getChuyenByGaDiAndGaDen(String gaDi, String gaDen) {
         List<ChuyenBay> chuyenbays = chuyenBayRepository.findAllByGaDiAndGaDen(gaDi, gaDen);
         return chuyenbays;
     }
 
     @Override
+    public List<ChuyenBay> getChuyenByGaDiAndGaDenVaTroVe(String gaDi, String gaDen) {
+        List<ChuyenBay> chuyenbays = chuyenBayRepository.findAllByGaDiAndGaDenVaTroVe(gaDi, gaDen);
+        return chuyenbays;
+    }
+
+    @Override
     public int countChuyenBayByGaDi(String gaDi) {
-        return chuyenBayRepository.countChuyenBayByGaDi(gaDi);
+        List<ChuyenBay> chuyenbays = chuyenBayRepository.findChuyenBayByGaDi(gaDi);
+        return chuyenbays.size();
     }
 
     @Override
-    public List<ChuyenBay> findChuyenBayByTenMayBayAnd(String tenMB) {
-        return chuyenBayRepository.findChuyenBayByTenMayBayAnd(tenMB);
+    public List<ChuyenBay> getChuyenBayByTamBayAndLoaiMayBay(String tenMB) {
+        return chuyenBayRepository.findChuyenBayByTamBayAndLoaiMayBay(tenMB);
     }
 
     @Override
-    public List<ChuyenBay> findChuyenBayByGaDiAndGaDen(String gaDi, String gaDen) {
-        return chuyenBayRepository.findChuyenBayByGaDiAndGaDen(gaDi, gaDen);
-    }
-
-    @Override
-    public Double getTotalChiPhiTraChoPhiCong(String gaDi) {
+    public Double getTotalChiPhiTraChoPhiCongByGaDi(String gaDi) {
         List<ChuyenBay> dsChuyenBay = chuyenBayRepository.findChuyenBayByGaDi(gaDi);
         Double totalChiPhi = 0.0;
         for (ChuyenBay item : dsChuyenBay) {
@@ -73,14 +74,20 @@ public class ChuyenBayServiceImpl implements ChuyenBayService {
     }
 
     @Override
-    public List<ChuyenBay> findChuyenBayByGioDi(Time gioDi) {
+    public List<ChuyenBay> getChuyenBayByGioDi(Time gioDi) {
         return chuyenBayRepository.findChuyenBayByGioDiLessThan(gioDi);
     }
 
     @Override
-    public int getSoChuyenBayByGioDiAndGaDi(Time gioDi, String gaDi) {
+    public int countChuyenBayByGioDiAndGaDi(Time gioDi, String gaDi) {
         List<ChuyenBay> dsChuyenBay = chuyenBayRepository.findChuyenBayByGioDiLessThanAndAndGaDi(gioDi, gaDi);
         return dsChuyenBay.size();
+    }
+
+    @Override
+    public List<ChuyenBay> getChuyenBayByTamBayAndLoaiMayBayLike(String tenMB) {
+        List<ChuyenBay> dsChuyenBay = chuyenBayRepository.findChuyenBayThucHienTatCaLoaiMayBayLike(tenMB);
+        return dsChuyenBay;
     }
 
 }

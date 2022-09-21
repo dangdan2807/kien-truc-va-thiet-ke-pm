@@ -25,4 +25,8 @@ public interface NhanVienService {
     public List<Map<String, Object>> getMaNhanVienVaSoMBLaiDc();
 
     public List<NhanVien> getNhanVienByKhongPhaiLaPhiCong();
+
+    public List<NhanVien> getNhanVienByLuongCaoNhat();
+
+    public Double getTotalSalaryPhiCong();
 }
