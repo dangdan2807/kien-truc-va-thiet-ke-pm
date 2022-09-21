@@ -9,6 +9,9 @@ import java.sql.Time;
 import java.util.List;
 
 public interface ChuyenBayRepository extends JpaRepository<ChuyenBay, String> {
+    @Override
+    <S extends ChuyenBay> List<S> saveAll(Iterable<S> entities);
+
     List<ChuyenBay> findAllByGaDen(String maGaDen);
 
     List<ChuyenBay> findAllByDoDaiGreaterThan(int km);

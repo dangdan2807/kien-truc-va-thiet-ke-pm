@@ -25,7 +25,7 @@ public class ChungNhan implements Serializable {
     public ChungNhan() {
     }
 
-    public ChungNhan(MayBay mayBay, NhanVien nhanVien) {
+    public ChungNhan(NhanVien nhanVien, MayBay mayBay) {
         this.MaMB = mayBay;
         this.MaNV = nhanVien;
     }

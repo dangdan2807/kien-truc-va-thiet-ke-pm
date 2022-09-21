@@ -1,6 +1,40 @@
 # lab 4 - test
 
-## 1. Test
+## 1. Deloy docker
+**[DOCKER HUB](https://hub.docker.com/r/dangdan2807/ktvtkpm-lab4)**  
+
+**Bước 1**: chạy lệnh sau để tạo 1 image spring làm nền tảng để build docker compose  
+```
+docker build --tag ktvtkpm-lab4:v1.0 .
+```
+**Bước 1.1**: mở file `application.properties` tại `src/main/resources` và thay đổi như sau:
+```
+<!-- dành cho docker -->
+spring.datasource.url=jdbc:mysql://mysql-ktvtpm-lab4-container:3306/qlchuyenbay
+
+<!-- dành cho localhost -->
+spring.datasource.url=jdbc:mysql://localhost:3306/qlchuyenbay
+```
+
+**Bước 2**: chạy lệnh để tạo 1 compose  
+```
+docker compose up --build
+```
+**Bước 3**: chạy docker container vừa được tạo ra có tên `quanlychuyenbay` (trên giao diện `docker desktop`) hoặc dùng lệnh sau:
+```
+docker compose start 
+```
+**Bước 4**: Lúc này theo mặc định thì server đang chạy ở port `13000`. 
+- Truy cập [localhost](http://localhost:13000/) nếu hiển thị `ok` thì server đã hoạt động bình thường
+- Truy cập [localhost/insert-db](http://localhost:13000/insert-db) để thêm dữ liệu mẫu vào database
+- Tiến hành tiến theo bảng bên dưới
+
+**Khác** để dừng docker compose dùng lệnh
+```
+docker compose stop
+```
+
+## 2. Test
 
 | câu | đường dẫn | kết quả |  
 | :-- | :-------- | :--- |  

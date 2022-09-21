@@ -35,6 +35,10 @@ public class MayBay implements Serializable {
         this.tamBay = tamBay;
     }
 
+    public MayBay(int maMB) {
+        this.maMB = maMB;
+    }
+
     public MayBay() {
     }
 }

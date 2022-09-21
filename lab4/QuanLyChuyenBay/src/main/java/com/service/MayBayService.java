@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface MayBayService {
+    public void insertMayBays(List<MayBay> dsMayBay);
+    
     public int countMayBayByLoaiLike(String loaiMayBay);
 
     public List<String> getMaMBByHoPhiCong(String hoPhiCong);

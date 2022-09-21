@@ -90,4 +90,9 @@ public class ChuyenBayServiceImpl implements ChuyenBayService {
         return dsChuyenBay;
     }
 
+    @Override
+    public void insertChuyenBays(List<ChuyenBay> dsChuyenBay) {
+        chuyenBayRepository.saveAll(dsChuyenBay);
+    }
+
 }

@@ -15,6 +15,11 @@ public class NhanVienServiceImpl implements NhanVienService{
     NhanVienRepository nhanVienRepository;
 
     @Override
+    public void insertNhanViens(List<NhanVien> dsNhanVien) {
+        nhanVienRepository.saveAll(dsNhanVien);
+    }
+
+    @Override
     public List<NhanVien> findAllByLuongLessThan(int luong) {
         List<NhanVien> nhanViens = nhanVienRepository.findAllByLuongLessThan(luong);
         return nhanViens;

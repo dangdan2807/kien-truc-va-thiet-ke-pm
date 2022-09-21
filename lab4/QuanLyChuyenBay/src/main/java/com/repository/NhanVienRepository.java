@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface NhanVienRepository extends JpaRepository<NhanVien, String> {
+    @Override
+    <S extends NhanVien> List<S> saveAll(Iterable<S> entities);
+
     List<NhanVien> findAllByLuongLessThan(int luong);
 
     @Query(value = "select SUM(nv.luong) from NhanVien nv")

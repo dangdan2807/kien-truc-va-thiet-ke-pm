@@ -35,6 +35,10 @@ public class NhanVien implements Serializable {
         this.luong = luong;
     }
 
+    public NhanVien(String maNV) {
+        this.maNV = maNV;
+    }
+
     public NhanVien() {
     }
 }

@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 public interface MayBayRepository extends JpaRepository<MayBay, Long> {
+
+    @Override
+    <S extends MayBay> List<S> saveAll(Iterable<S> entities);
+
     @Query("select count(mb.maMB) from MayBay mb where mb.loai like 'Boeing%'")
     public int countMayBayByLoaiLike(String loaiMayBay);
 

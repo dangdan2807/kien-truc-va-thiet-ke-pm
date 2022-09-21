@@ -28,4 +28,6 @@ public interface ChuyenBayService {
     int countChuyenBayByGioDiAndGaDi(Time gioDi, String gaDi);
 
     List<ChuyenBay> getChuyenBayByTamBayAndLoaiMayBayLike(@Param("tenMB") String tenMB);
+
+    void insertChuyenBays(List<ChuyenBay> dsChuyenBay);
 }

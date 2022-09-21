@@ -14,6 +14,11 @@ public class MayBayServiceImpl implements MayBayService {
     private MayBayRepository mayBayRepository;
 
     @Override
+    public void insertMayBays(List<MayBay> dsMayBay) {
+        mayBayRepository.saveAll(dsMayBay);
+    }
+
+    @Override
     public int countMayBayByLoaiLike(String loaiMayBay) {
         return mayBayRepository.countMayBayByLoaiLike(loaiMayBay);
     }

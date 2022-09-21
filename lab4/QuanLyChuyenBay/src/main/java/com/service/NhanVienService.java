@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface NhanVienService {
+    public void insertNhanViens(List<NhanVien> dsNhanVien);
+
     public List<NhanVien> findAllByLuongLessThan(int luong);
 
     public Object getTotalSalary();

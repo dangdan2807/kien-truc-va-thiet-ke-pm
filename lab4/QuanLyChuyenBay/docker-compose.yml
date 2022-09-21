@@ -1,0 +1,36 @@
+version: '3.7'
+services: 
+  java-ktvtpm-lab4-container:
+    image: ktvtkpm-lab4:v1.0.0
+    container_name: java-ktvtpm-lab4-container
+    ports:
+      - 13000:13000
+    volumes:
+      - ./:/app
+    environment:
+      MYSQL_HOST: mysql-ktvtpm-lab4-container
+    networks:
+      - ktvtpm-lab4-network
+    
+  mysql-ktvtpm-lab4-container:
+    image: mysql:8.0.28
+    container_name: mysql-ktvtpm-lab4-container
+    volumes:
+      - mysql-ktvtkpm-lab4-data:/var/lib/mysql
+      - mysql-ktvtkpm-lab4-config-deamond:/etc/mysql/conf.d
+    environment:
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: qlchuyenbay
+    networks:
+      - ktvtpm-lab4-network
+    
+
+networks:
+  ktvtpm-lab4-network:
+    name: ktvtpm-lab4-network
+
+volumes:
+  mysql-ktvtkpm-lab4-data:
+  mysql-ktvtkpm-lab4-config-deamond:
