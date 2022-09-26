@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController()
-@RequestMapping("/")
+@RequestMapping("")
 public class HomeController {
     private static Logger logger = LogManager.getLogger(ChuyenBayController.class);
     private static Gson gson = new Gson();
@@ -40,8 +40,14 @@ public class HomeController {
     private ChungNhanService chungNhanService;
 
     // [GET] /
-    @GetMapping("")
+    @GetMapping("/")
     public String home() {
+        return "hello";
+    }
+
+    // [GET] /docs
+    @GetMapping("/docs")
+    public String docs() {
         return "hello";
     }
 

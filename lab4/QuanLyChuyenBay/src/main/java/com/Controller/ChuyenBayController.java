@@ -30,8 +30,12 @@ public class ChuyenBayController {
         String maGaDen = "DAD";
         List<ChuyenBay> dsChuyenBay = chuyenBayService.getChuyenBayDen(maGaDen);
 //        logger.info("controller - getChuyenBayDiDaLat:" + dsChuyenBay.size());
-
-        Map<String, List<ChuyenBay>> res = new HashMap<>();
+        String message = "Lấy danh sách chuyến bay đi đà lạt";
+        if(dsChuyenBay.size() == 0) {
+            message = "Không có chuyến bay nào phù hợp";
+        }
+        Map<String, Object> res = new HashMap<>();
+        res.put("message", message);
         res.put("ds_chuyen_bay", dsChuyenBay);
         return gson.toJson(res);
     }
@@ -43,7 +47,12 @@ public class ChuyenBayController {
         List<ChuyenBay> dsChuyenBay = chuyenBayService.getAllByDoDaiGreaterThan();
 //        logger.info("controller - getChuyenBayTamLonHon10kkm:" + dsChuyenBay.size());
 
-        Map<String, List<ChuyenBay>> res = new HashMap<>();
+        String message = "Lấy danh sách chuyến bay có tầm bay lớn hơn 10km";
+        if(dsChuyenBay.size() == 0) {
+            message = "Không có chuyến bay nào phù hợp";
+        }
+        Map<String, Object> res = new HashMap<>();
+        res.put("message", message);
         res.put("ds_chuyen_bay", dsChuyenBay);
         return gson.toJson(res);
     }
@@ -51,12 +60,17 @@ public class ChuyenBayController {
     // cau 4
     // [GET] /chuyen-bay/do-dai-duong-bay?tu=?&den=?
     @GetMapping("/do-dai-duong-bay")
-    public String getChuyenBayCoDoDaiDuongBayTuADenB(@RequestParam(name = "tu", required = false, defaultValue = "0") Integer tu,
-                                                              @RequestParam(value = "den", required = false, defaultValue = "10000") Integer den) {
+    public String getChuyenBayCoDoDaiDuongBayTuADenB(
+            @RequestParam(name = "tu", required = false, defaultValue = "0") Integer tu,
+            @RequestParam(value = "den", required = false, defaultValue = "10000") Integer den) {
         List<ChuyenBay> dsChuyenBay = chuyenBayService.getAllByDoDaiGreaterThanEqualAndDoDaiLessThanEqual(tu, den);
 //        logger.info("controller - getChuyenBayCoDoDaiDuongBayTuADenB:" + dsChuyenBay.size());
-
-        Map<String, List<ChuyenBay>> res = new HashMap<>();
+        String message = "Lấy danh sách chuyến bay có có độ dài đường bay từ " + tu + "m đến " + den + "m";
+        if(dsChuyenBay.size() == 0) {
+            message = "Không có chuyến bay nào phù hợp";
+        }
+        Map<String, Object> res = new HashMap<>();
+        res.put("message", message);
         res.put("ds_chuyen_bay", dsChuyenBay);
         return gson.toJson(res);
     }
