@@ -5,7 +5,7 @@
 
 **Bước 1**: chạy lệnh sau để tạo 1 image spring làm nền tảng để build docker compose  
 ```
-docker build --tag ktvtkpm-lab4:v1.0 .
+docker build --tag ktvtkpm-lab4:v1.0.0 .
 ```
 **Bước 1.1**: mở file `application.properties` tại `src/main/resources` và thay đổi như sau:
 ```
