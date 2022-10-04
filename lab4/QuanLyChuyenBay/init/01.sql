@@ -4,7 +4,6 @@ use QLChuyenBay;
 
 -- Table structure for chuyenbay
 -- ----------------------------
-DROP TABLE IF EXISTS chuyenbay;
 CREATE TABLE chuyenbay (
   MaCB varchar(5) NOT NULL,
   GaDi varchar(50) DEFAULT NULL,
@@ -42,7 +41,6 @@ INSERT INTO chuyenbay VALUES ('VN741', 'HAN', 'PXU', 395, '06:30:00', '08:30:00'
 -- ----------------------------
 -- Table structure for maybay
 -- ----------------------------
-DROP TABLE IF EXISTS maybay;
 CREATE TABLE maybay (
   MaMB integer NOT NULL DEFAULT '0',
   Loai varchar(50) DEFAULT NULL,
@@ -67,7 +65,6 @@ INSERT INTO maybay VALUES ('777', 'Boeing 777 - 300', 10306);
 -- ----------------------------
 -- Table structure for nhanvien
 -- ----------------------------
-DROP TABLE IF EXISTS nhanvien;
 CREATE TABLE nhanvien (
   MaNV varchar(9) NOT NULL DEFAULT '',
   Ten varchar(50) DEFAULT NULL,
