@@ -1,22 +1,29 @@
-package com.Controller;
-
-import com.entity.ChuyenBay;
-import com.google.gson.Gson;
-import com.service.ChuyenBayService;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+package com.fit.se.ChuyenBayService.controller;
 
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController()
-@RequestMapping("/chuyen-bay")
+import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.fit.se.ChuyenBayService.model.ChuyenBay;
+import com.fit.se.ChuyenBayService.service.ChuyenBayService;
+
+@RestController
+@RequestMapping("/api/v1/chuyen-bay")
 public class ChuyenBayController {
-    private static Logger logger = LogManager.getLogger(ChuyenBayController.class);
+//    private static Logger logger = LogManager.getLogger(ChuyenBayController.class);
     private static Gson gson = new Gson();
     @Autowired
     private ChuyenBayService chuyenBayService;
@@ -29,7 +36,7 @@ public class ChuyenBayController {
         List<ChuyenBay> dsChuyenBay = chuyenBayService.getChuyenBayDen(maGaDen);
 //        logger.info("controller - getChuyenBayDiDaLat:" + dsChuyenBay.size());
         String message = "Lấy danh sách chuyến bay đi đà lạt";
-        if(dsChuyenBay.size() == 0) {
+        if (dsChuyenBay.size() == 0) {
             message = "Không có chuyến bay nào phù hợp";
         }
         Map<String, Object> res = new HashMap<>();
@@ -46,7 +53,7 @@ public class ChuyenBayController {
 //        logger.info("controller - getChuyenBayTamLonHon10kkm:" + dsChuyenBay.size());
 
         String message = "Lấy danh sách chuyến bay có tầm bay lớn hơn 10km";
-        if(dsChuyenBay.size() == 0) {
+        if (dsChuyenBay.size() == 0) {
             message = "Không có chuyến bay nào phù hợp";
         }
         Map<String, Object> res = new HashMap<>();
@@ -64,7 +71,7 @@ public class ChuyenBayController {
         List<ChuyenBay> dsChuyenBay = chuyenBayService.getAllByDoDaiGreaterThanEqualAndDoDaiLessThanEqual(tu, den);
 //        logger.info("controller - getChuyenBayCoDoDaiDuongBayTuADenB:" + dsChuyenBay.size());
         String message = "Lấy danh sách chuyến bay có có độ dài đường bay từ " + tu + "m đến " + den + "m";
-        if(dsChuyenBay.size() == 0) {
+        if (dsChuyenBay.size() == 0) {
             message = "Không có chuyến bay nào phù hợp";
         }
         Map<String, Object> res = new HashMap<>();
@@ -112,15 +119,15 @@ public class ChuyenBayController {
 
     // cau 14
     // [GET] /chuyen-bay/thuc-hien-chuyen-bay/{tenMB}
-    @GetMapping("/thuc-hien-chuyen-bay/{tenMB}")
-    public String getChuyenBayByTenMayBay(@PathVariable String tenMB) {
-        tenMB = tenMB.replace("-", " ");
-        List<ChuyenBay> dsChuyenBay = chuyenBayService.getChuyenBayByTamBayAndLoaiMayBay(tenMB);
-
-        Map<String, List<ChuyenBay>> res = new HashMap<>();
-        res.put("ds_chuyen_bay", dsChuyenBay);
-        return gson.toJson(res);
-    }
+//    @GetMapping("/thuc-hien-chuyen-bay/{tenMB}")
+//    public String getChuyenBayByTenMayBay(@PathVariable String tenMB) {
+//        tenMB = tenMB.replace("-", " ");
+//        List<ChuyenBay> dsChuyenBay = chuyenBayService.getChuyenBayByTamBayAndLoaiMayBay(tenMB);
+//
+//        Map<String, List<ChuyenBay>> res = new HashMap<>();
+//        res.put("ds_chuyen_bay", dsChuyenBay);
+//        return gson.toJson(res);
+//    }
 
     // cau 17
     // [GET] /chuyen-bay/chuyen-bay-va-tro-ve/{gaDi}/{gaDen}
@@ -166,7 +173,12 @@ public class ChuyenBayController {
     // [GET] /chuyen-bay/so-chuyen-bay-truoc-12-gio/{gaDi}/
     @GetMapping("/so-chuyen-bay-truoc-12-gio/{gaDi}")
     public String getSoChuyenBayTruoc12HByGaDi(@PathVariable String gaDi) {
-        Time gioDi = Time.valueOf("12:00:00");
+        Date gioDi = null;
+        try {
+            gioDi = new SimpleDateFormat("hh:mm:ss").parse("12:00:00");
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         int soChuyenBay = chuyenBayService.countChuyenBayByGioDiAndGaDi(gioDi, gaDi);
 
 
@@ -180,18 +192,16 @@ public class ChuyenBayController {
 
     // cau 28
     // [GET] /chuyen-bay/chuyen-bay-bang-loai-may-bay-boeing
-    @GetMapping("/chuyen-bay-bang-loai-may-bay-boeing")
-    public String getChuyenBayByLoaiMayBayBoeing() {
-        String tenMB = "boeing";
-        List<ChuyenBay> dsChuyenBay = chuyenBayService.getChuyenBayByTamBayAndLoaiMayBayLike(tenMB);
-
-
-        Map<String, List<ChuyenBay>> res = new HashMap<>();
-        res.put("ds_chuyen_bay", dsChuyenBay);
-
-        String json = gson.toJson(res);
-        return json;
-    }
-
-
+//    @GetMapping("/chuyen-bay-bang-loai-may-bay-boeing")
+//    public String getChuyenBayByLoaiMayBayBoeing() {
+//        String tenMB = "boeing";
+//        List<ChuyenBay> dsChuyenBay = chuyenBayService.getChuyenBayByTamBayAndLoaiMayBayLike(tenMB);
+//
+//
+//        Map<String, List<ChuyenBay>> res = new HashMap<>();
+//        res.put("ds_chuyen_bay", dsChuyenBay);
+//
+//        String json = gson.toJson(res);
+//        return json;
+//    }
 }
