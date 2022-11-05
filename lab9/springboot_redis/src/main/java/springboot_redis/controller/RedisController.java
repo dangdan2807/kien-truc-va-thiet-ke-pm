@@ -1,4 +1,4 @@
-package springboot_redis.example;
+package springboot_redis.controller;
 
 import com.google.gson.Gson;
 import springboot_redis.model.Employee;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/")
-public class RedisExample {
+public class RedisController {
     private static Gson gson = new Gson();
     @Autowired
     EmployeeServiceImpl employeeService;
