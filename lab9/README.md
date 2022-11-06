@@ -10,11 +10,11 @@
 
 #### update
 ![update](../image/lab9/update.png)  
-kết quả get by id
+kết quả: ở get by id
 
 ### get by id  
-![getbyid](../image/lab9/get_by_id_redis.png)  
-![redis](../image/lab9/getall_redis.png)  
+![getbyid](../image/lab9/get_by_id.png)  
+![redis](../image/lab9/get_by_id_redis.png)  
 
 ### delete  
 ![delete](../image/lab9/delete.png)  
